@@ -44,4 +44,4 @@ jobs:
       image: platform-automation-image
       file: platform-automation-tasks/tasks/download-product.yml
       params:
-        CONFIG_FILE: download-ops-manager.yml
+        CONFIG_FILE: install/download-ops-manager.yml
