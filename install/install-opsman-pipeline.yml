@@ -48,3 +48,9 @@ jobs:
     - task: create-vm
       image: platform-automation-image
       file: platform-automation-tasks/tasks/create-vm.yml
+      input_mapping:
+        state: config
+        image: downloaded-product
+      params:
+        OPSMAN_CONFIG_FILE: install/opsman.yml
+        STATE_FILE: install/state.yml
