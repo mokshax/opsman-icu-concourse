@@ -15,6 +15,7 @@ resources:
   type: git
   source:
     uri: ((pipeline-repo))
+    private_key: ((plat-auto-pipes-deploy-key.private_key))
     branch: main
 jobs:
 - name: install-ops-manager
