@@ -54,3 +54,23 @@ jobs:
       params:
         OPSMAN_CONFIG_FILE: install/opsman.yml
         STATE_FILE: install/state.yml
+      ensure:
+        do:
+          - task: make-commit
+            image: platform-automation-image
+            file: platform-automation-tasks/tasks/make-git-commit.yml
+            input_mapping:
+              repository: config
+              file-source: generated-state
+            output_mapping:
+              repository-commit: config-commit
+            params:
+              FILE_SOURCE_PATH: install/state.yml
+              FILE_DESTINATION_PATH: install/state.yml
+              GIT_AUTHOR_EMAIL: "pcf-pipeline-bot@example.com"
+              GIT_AUTHOR_NAME: "Platform Automation Toolkit Bot"
+              COMMIT_MESSAGE: 'Update state file'
+          - put: config
+            params:
+              repository: config-commit
+              merge: true
