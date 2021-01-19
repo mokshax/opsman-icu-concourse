@@ -53,7 +53,6 @@ jobs:
         image: downloaded-product
       params:
         OPSMAN_CONFIG_FILE: install/opsman.yml
-        STATE_FILE: install/state.yml
       ensure:
         do:
           - task: make-commit

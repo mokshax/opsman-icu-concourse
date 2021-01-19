@@ -21,5 +21,5 @@ opsman-configuration:
     ssh_public_key: ((opsman_ssh_public_key.public_key))   # REQUIRED Ops Manager >= 2.6
     vm_name: ops-manager-vm        # default - ops-manager-vm
   # Optional Ops Manager UI Settings for upgrade-opsman
-  banner-settings:
-    ui_banner_contents: ((opsman_ui_banner))
+  # banner-settings:
+  #  ui_banner_contents: ((opsman_ui_banner))
