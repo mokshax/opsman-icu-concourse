@@ -61,8 +61,8 @@ jobs:
     - task: export-installation
       image: platform-automation-image
       file: platform-automation-tasks/tasks/export-installation.yml
-      params:
-	ENV_FILE: upgrade/env.yml
+      input_mapping:
+        env: upgrade
 
     - put: installation
       params:
