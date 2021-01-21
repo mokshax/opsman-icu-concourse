@@ -78,10 +78,68 @@ jobs:
     params:
       globs: ["*image*.tgz"]
       unpack: true
+
   - get: platform-automation-tasks
     resource: platform-automation
     params:
       globs: ["*tasks*.zip"]
       unpack: true
+
   - get: env
+
   - get: installation
+
+  - task: credhub-interpolate
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/credhub-interpolate.yml
+    params:
+      CREDHUB_CA_CERT: ((credhub-ca.certificate))
+      CREDHUB_CLIENT: ((credhub-client))
+      CREDHUB_SECRET: ((credhub-secret))
+      CREDHUB_SERVER: ((credhub-server))
+      PREFIX: /concourse/support/install-opsman-pipeline
+    input_mapping:
+      files: env
+    output_mapping:
+      interpolated-files: interpolated-configs
+
+  - task: download-opsman-image
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/download-product.yml
+    params:
+      CONFIG_FILE: upgrade/download-ops-manager.yml
+    input_mapping:
+      config: interpolated-configs
+
+  - task: upgrade-opsman
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/upgrade-opsman.yml
+    params:
+      ENV_FILE: upgrade/env.yml
+      OPSMAN_CONFIG_FILE: upgrade/opsman.yml
+      STATE_FILE: upgrade/state.yml
+    input_mapping:
+      config: interpolated-configs
+      image: downloaded-product
+      secrets: interpolated-configs
+      state: env/upgrade
+  ensure:
+    do:
+    - task: make-commit
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/make-git-commit.yml
+      input_mapping:
+        repository: env
+        file-source: generated-state
+      output_mapping:
+        repository-commit: env-commit
+      params:
+        FILE_SOURCE_PATH: state.yml
+        FILE_DESTINATION_PATH: upgrade/state.yml
+        GIT_AUTHOR_EMAIL: "ci-user@example.com"
+        GIT_AUTHOR_NAME: "CI User"
+        COMMIT_MESSAGE: 'Update state file'
+    - put: env
+      params:
+        repository: env-commit
+        merge: true
