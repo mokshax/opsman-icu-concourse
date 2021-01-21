@@ -69,3 +69,19 @@ jobs:
     - put: installation
       params:
         file: installation/installation-*.zip
+
+- name: upgrade-opsman
+  serial: true
+  plan:
+  - get: platform-automation-image
+    resource: platform-automation
+    params:
+      globs: ["*image*.tgz"]
+      unpack: true
+  - get: platform-automation-tasks
+    resource: platform-automation
+    params:
+      globs: ["*tasks*.zip"]
+      unpack: true
+  - get: env
+  - get: installation
