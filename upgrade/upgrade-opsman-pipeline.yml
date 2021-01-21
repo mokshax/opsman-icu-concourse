@@ -12,12 +12,17 @@ resources:
   source:
     product_slug: platform-automation
     api_token: ((pivnet-refresh-token))
-- name: config
+- name: env
   type: git
   source:
     uri: ((pipeline-repo))
     private_key: ((plat-auto-pipes-deploy-key.private_key))
     branch: main
+- name: installation
+  type: s3
+  source:
+    bucket: ((platform-automation-bucket))
+    regexp: installation-(.*).zip
 
 jobs:
 - name: export-installation
@@ -28,15 +33,32 @@ jobs:
       params:
         globs: ["*image*.tgz"]
         unpack: true
+
     - get: platform-automation-tasks
       resource: platform-automation
       params:
         globs: ["*tasks*.zip"]
         unpack: true
+
     - get: env
+
+    - task: credhub-interpolate
+      image: platform-automation-image
+      file: platform-automation-tasks/tasks/credhub-interpolate.yml
+      params:
+        CREDHUB_CLIENT: ((credhub-client))
+        CREDHUB_SECRET: ((credhub-secret))
+        CREDHUB_SERVER: ((credhub-server))
+        PREFIX: /concourse/support/install-opsman-pipeline
+      input_mapping:
+        files: env
+      output_mapping:
+        interpolated-files: interpolated-env
+
     - task: export-installation
       image: platform-automation-image
       file: platform-automation-tasks/tasks/export-installation.yml
+
     - put: installation
       params:
         file: installation/installation-*.zip
