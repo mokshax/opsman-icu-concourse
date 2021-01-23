@@ -119,10 +119,11 @@ jobs:
       OPSMAN_CONFIG_FILE: upgrade/opsman.yml
       STATE_FILE: upgrade/state.yml
     input_mapping:
+      env: interpolated-configs
       config: interpolated-configs
       image: downloaded-product
       secrets: interpolated-configs
-      state: env
+      state: interpolated-configs
   ensure:
     do:
     - task: make-commit
