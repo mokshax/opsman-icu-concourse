@@ -1,4 +1,7 @@
 ---
+banner-settings:
+  ui_banner_contents: "Do or do not, there is no try"
+  ssh_banner_contents: "Do or do not, there is no try"
 opsman-configuration:
   vsphere:
     vcenter:
