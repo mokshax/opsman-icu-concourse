@@ -85,7 +85,7 @@ jobs:
     - task: configure-ldap-authentication
       image: platform-automation-image
       file: platform-automation-tasks/tasks/configure-ldap-authentication.yml
-      attempts: 10
+      # attempts: 10
       input_mapping:
         env: config
         config: config
