@@ -1,0 +1,12 @@
+decryption-passphrase: ((opsman_password))
+server-url: ((opsman_ldap_url))
+ldap-username: ((opsman_ldap_username))
+ldap-password: ((opsman_ldap_password))
+user-search-base: dc=tanzu,dc=vmware,dc=com
+user-search-filter: uid={0}
+group-search-base: ou=Groups,dc=tanzu,dc=vmware,dc=com
+group-search-filter: memberUid={1}
+ldap-rbac-admin-group-name: cn=admin,ou=Groups,dc=tanzu,dc=vmware,dc=com
+email-attribute: uid
+ldap-referrals: follow
+precreated-client-secret: ((opsman_password))
