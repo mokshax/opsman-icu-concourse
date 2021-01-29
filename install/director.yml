@@ -18,7 +18,7 @@ iaas-configurations:
   ephemeral_datastores_string: ((vcenter_datastore))
   name: default
   nsx_networking_enabled: false
-  persistent_datastores_string: ((vcenter_datastore)
+  persistent_datastores_string: ((vcenter_datastore))
   ssl_verification_enabled: false
   vcenter_host: ((vcenter_url))
   vcenter_password: ((vcenter_password))
