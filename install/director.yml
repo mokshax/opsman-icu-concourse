@@ -5,7 +5,7 @@ az-configuration:
   - cluster: ((vcenter_cluster))
     drs_rule: MUST
     host_group: null
-    resource_pool: ((vcenter_resource_pool))
+    resource_pool: ((vcenter_bosh_resource_pool))
 iaas-configurations:
 - additional_cloud_properties: {}
   bosh_disk_path: ((vcenter_bosh_disk_path))
