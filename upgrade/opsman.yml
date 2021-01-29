@@ -2,6 +2,8 @@
 ssl-certificate:
   certificate: ((opsman_cert.certificate))
   private_key: ((opsman_cert.private_key))
+rbac-settings:
+  ldap_rbac_admin_group_name: cn=admin,ou=Groups,dc=tanzu,dc=vmware,dc=com 
 banner-settings:
   ui_banner_contents: "Do or do not, there is no try"
   ssh_banner_contents: "Do or do not, there is no try"
