@@ -1,0 +1,112 @@
+az-configuration:
+- name: az1
+  iaas_configuration_name: default
+  clusters:
+  - cluster: ((vcenter_cluster))
+    drs_rule: MUST
+    guid: 6878d53a3094d81186e6
+    host_group: null
+    resource_pool: ((vcenter_resource_pool))
+  guid: 9e25cf56d7b912a40248
+iaas-configurations:
+- additional_cloud_properties: {}
+  bosh_disk_path: ((vcenter_bosh_disk_path))
+  bosh_template_folder: ((vcenter_bosh_template_folder))
+  bosh_vm_folder: ((vcenter_bosh_vm_folder))
+  datacenter: ((vcenter_datacenter))
+  disk_type: thin
+  ephemeral_datastores_string: ((vcenter_datastore))
+  name: default
+  nsx_networking_enabled: false
+  persistent_datastores_string: ((vcenter_datastore)
+  ssl_verification_enabled: false
+  vcenter_host: ((vcenter_url))
+  vcenter_password: ((vcenter_password))
+  vcenter_username: ((vcenter_username))
+network-assignment:
+  network:
+    name: default
+  other_availability_zones: []
+  singleton_availability_zone:
+    name: az1
+networks-configuration:
+  icmp_checks_enabled: true
+  networks:
+  - name: default
+    subnets:
+    - iaas_identifier: ((opsman_network))
+      cidr: ((vcenter_bosh_network_cidr))
+      dns: ((opsman_dns))
+      gateway: ((vcenter_bosh_network_gateway))
+      reserved_ip_ranges: ((vcenter_bosh_network_reserved_ips))
+      availability_zone_names:
+      - az1
+properties-configuration:
+  director_configuration:
+    blobstore_type: local
+    bosh_director_recreate_on_next_deploy: false
+    bosh_recreate_on_next_deploy: false
+    bosh_recreate_persistent_disks_on_next_deploy: false
+    database_type: internal
+    director_worker_count: 5
+    encryption:
+      keys: []
+      providers: []
+    hm_emailer_options:
+      enabled: false
+    hm_pager_duty_options:
+      enabled: false
+    identification_tags: {}
+    job_configuration_on_tmpfs: false
+    keep_unreachable_vms: false
+    local_blobstore_options:
+      enable_signed_urls: true
+    metrics_server_enabled: true
+    ntp_servers_string: ((opsman_ntp))
+    post_deploy_enabled: false
+    resurrector_enabled: false
+    retry_bosh_deploys: false
+    skip_director_drain: false
+    system_metrics_runtime_enabled: true
+  dns_configuration:
+    excluded_recursors: []
+    handlers: []
+  security_configuration:
+    generate_vm_passwords: true
+    opsmanager_root_ca_trusted_certs: false
+  syslog_configuration:
+    enabled: false
+resource-configuration:
+  compilation:
+    additional_networks: []
+    additional_vm_extensions: []
+    instance_type:
+      id: automatic
+    instances: automatic
+    nsx:
+      lbs: []
+      security_groups: []
+    nsxt:
+      lb:
+        server_pools: []
+      ns_groups: []
+    swap_as_percent_of_memory_size: automatic
+  director:
+    additional_networks: []
+    additional_vm_extensions: []
+    instance_type:
+      id: automatic
+    instances: automatic
+    nsx:
+      lbs: []
+      security_groups: []
+    nsxt:
+      lb:
+        server_pools: []
+      ns_groups: []
+    persistent_disk:
+      size_mb: automatic
+    swap_as_percent_of_memory_size: automatic
+vmextensions-configuration: []
+vmtypes-configuration: {}
+
