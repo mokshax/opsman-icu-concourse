@@ -4,10 +4,8 @@ az-configuration:
   clusters:
   - cluster: ((vcenter_cluster))
     drs_rule: MUST
-    guid: 6878d53a3094d81186e6
     host_group: null
     resource_pool: ((vcenter_resource_pool))
-  guid: 9e25cf56d7b912a40248
 iaas-configurations:
 - additional_cloud_properties: {}
   bosh_disk_path: ((vcenter_bosh_disk_path))
