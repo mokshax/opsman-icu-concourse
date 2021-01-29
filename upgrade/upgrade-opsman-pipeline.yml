@@ -114,6 +114,7 @@ jobs:
   - task: upgrade-opsman
     image: platform-automation-image
     file: platform-automation-tasks/tasks/upgrade-opsman.yml
+    attempts: 10
     params:
       ENV_FILE: upgrade/env.yml
       OPSMAN_CONFIG_FILE: upgrade/opsman.yml
